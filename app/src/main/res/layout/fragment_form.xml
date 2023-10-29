@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp">
+    <!-- Titulo-->
+    <EditText
+        android:id="@+id/nombre_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"
+        android:hint="Nombre"
+        android:maxLength="40"
+        android:maxLines="1"
+        android:minLines="1"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        android:phoneNumber="false"
+        android:singleLine="true" />
+    <Spinner
+        android:id="@+id/input_pais_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pais_input_label"
+        android:layout_marginTop="10dp"
+        android:entries="@array/planets_array" />
+
+    <TextView
+        android:id="@+id/pais_input_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nombre_input"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:paddingTop="16dp"
+        android:text="País"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black" />
+
+    <Button
+        android:id="@+id/buttonConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/pais_input_label"
+        android:layout_toEndOf="@id/input_pais_spinner"
+        android:text="Button" />
+
+</RelativeLayout>

@@ -53,6 +53,7 @@ public class DetalleFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_detail, container, false);
 
+        //setHasOptionsMenu(true);
         cabecera = (ImageView) v.findViewById(R.id.cabecera);
         nombre = (TextView) v.findViewById(R.id.nombre);
         pais = (TextView) v.findViewById(R.id.pais);

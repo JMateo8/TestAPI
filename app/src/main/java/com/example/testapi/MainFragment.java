@@ -1,11 +1,15 @@
 package com.example.testapi;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,33 +27,41 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Home extends AppCompatActivity {
+public class MainFragment extends Fragment {
+
+    private static final String TAG = MainFragment.class.getSimpleName();
+
     RecyclerView recyclerView;
     AdaptadorHome adaptadorHome;
-    ArrayList<Persona> arrayListPersonasGlobal;
     FloatingActionButton fab;
     private Gson gson = new Gson();
+
+    public MainFragment(){}
+
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        
-        arrayListPersonasGlobal = new ArrayList<>();
-        cargarDatos();
-        
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.activity_home, container, false);
+        fab = (FloatingActionButton) v.findViewById(R.id.floatingActionButton);
+        recyclerView = v.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
+        cargarAdaptador();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Home.this, "INSERTAR", Toast.LENGTH_SHORT).show();
+                getActivity().startActivityForResult(
+                        new Intent(getActivity(), InsertarActivity.class),3
+                );
+                Toast.makeText(getActivity(), "INSERTAR", Toast.LENGTH_SHORT).show();
             }
         });
+        return v;
     }
 
-    public void cargarDatos(){
-        VolleySingleton.getInstance(this).addToRequestQueue(
+    public void cargarAdaptador(){
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(
                 new JsonObjectRequest(
                         Request.Method.GET,
                         Constantes.GET,
@@ -63,7 +75,7 @@ public class Home extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(Home.this, error.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                 )
@@ -78,14 +90,12 @@ public class Home extends AppCompatActivity {
                 case "1":
                     JSONArray mensaje = response.getJSONArray("personas");
                     Persona[] arrayPersonas = gson.fromJson(mensaje.toString(), Persona[].class);
-                    arrayListPersonasGlobal = new ArrayList<>(Arrays.asList(arrayPersonas));
-                    adaptadorHome = new AdaptadorHome(this, arrayListPersonasGlobal);
-                    adaptadorHome = new AdaptadorHome(this, arrayListPersonasGlobal);
+                    adaptadorHome = new AdaptadorHome(getActivity(), new ArrayList<>(Arrays.asList(arrayPersonas)));
                     recyclerView.setAdapter(adaptadorHome);
                     break;
                 case "2":
                     String msj2 = response.getString("mensaje");
-                    Toast.makeText(this, msj2, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), msj2, Toast.LENGTH_SHORT).show();
                     break;
             }
         } catch (JSONException e) {

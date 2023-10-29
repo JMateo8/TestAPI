@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Descartar Cambios -->
+    <item
+        android:id="@+id/action_discard"
+        android:orderInCategory="3"
+        android:title="Editar"
+        app:showAsAction="never" />
+
+    <!-- Borrar -->
+    <item
+        android:id="@+id/action_delete"
+        android:orderInCategory="4"
+        android:title="Borrar"
+        app:showAsAction="never" />
+</menu>

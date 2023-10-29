@@ -33,12 +33,13 @@ public class DetallePersona extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_close_24);
         }
 
         if (getIntent().getStringExtra(Constantes.EXTRA_ID) != null){
             idPersona = getIntent().getStringExtra(Constantes.EXTRA_ID);
         }
+
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, DetalleFragment.createInstance(idPersona), "DetailFragment")
@@ -46,13 +47,17 @@ public class DetallePersona extends AppCompatActivity {
         }
     }
 
-    /*
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
-
-     */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

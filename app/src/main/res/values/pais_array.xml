@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="planets_array">
+        <item>Alemania</item>
+        <item>Argentina</item>
+        <item>España</item>
+        <item>Francia</item>
+        <item>México</item>
+        <item>Portugal</item>
+        <item>Rusia</item>
+        <item>Neptuno</item>
+    </string-array>
+</resources>
